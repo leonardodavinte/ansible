@@ -1,0 +1,1 @@
+# Algumas baguncinhas em Ansible
