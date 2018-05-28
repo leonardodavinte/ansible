@@ -1,0 +1,26 @@
+---
+#Tirado do Youtube do Canal LinuxTips (Jefferson).
+- hosts: linuxtips
+  remote_user: root
+  tasks:
+    - name: "Instalacao do Apache e Mysql"
+      apt: name={{ item }} state=present
+      with_items:
+        - apache2
+        - mysql-server
+        - python-mysqldb
+
+   - name: "Subindo o Apache e o Mysql e para que seja iniciado no boot"
+     service: name={{ item }} state=started enabled=yes
+     with_items:
+        - apache2
+        - mysql
+
+   - name: "Criando um DataBase de teste"
+     mysql_db: name=linuxtipsDB
+               state=present
+
+   - name: "Criando um user para o Mysql"
+     mysql_user: name=usuariodobanco
+                 password=senha123dobanco
+                 priv=.:ALL state=present
