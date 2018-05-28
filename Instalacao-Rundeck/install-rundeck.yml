@@ -1,0 +1,26 @@
+---
+- name: Instalacao do RunDeck
+  hosts: rundeckserver
+  become: true
+
+  tasks:
+  - name: "Instalacao do repositorio do Rundeck- Pocote via http"
+    yum:
+     name: http://repo.rundeck.org/latest.rpm
+     state: present
+
+  - name: "Instalacao do Java 8"
+    yum:
+      name: java-1.8.0
+      state: present
+
+  - name: "Instalacao do RunDeck"
+    yum:
+      name: rundeck
+      state: latest
+      update_cache: yes
+
+  - name: "Start do RunDeck"
+    service: 
+      name: rundeckd
+      state: started
